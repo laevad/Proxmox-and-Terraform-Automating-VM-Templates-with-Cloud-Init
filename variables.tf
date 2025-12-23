@@ -9,7 +9,7 @@ variable "worker_vm_name" {
 
 variable "node_name" {
   type    = string
-  default = "pve"
+  default = "main"
 }
 
 variable "template" {
