@@ -1,0 +1,16 @@
+#cloud-config
+users:
+  - name: user
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    groups: users, admin, sudo
+    shell: /bin/bash
+    lock_passwd: false
+    plain_text_passwd: "1234"
+    ssh_authorized_keys:
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICKEdH7wF8B9P+3bROd4Q9fOUjme0CsqRLlr2o30mv72 djaldave@gmail.com
+packages:
+  - git
+  - python3-pip
+runcmd:
+  - apt-get install -y pipx
+  - sudo -u user -i bash -c "pipx install --include-deps ansible"
