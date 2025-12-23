@@ -50,6 +50,13 @@ Customize the deployment by modifying variables in `variables.tf`:
 
 ### Cloud-Init Configuration
 
+Before running Terraform, you need to upload the Cloud-Init configuration file to Proxmox:
+
+1. In the Proxmox web UI, go to **Storage** > **local** > **Content**
+2. Click **Upload** and select **Snippet**
+3. Upload the `snippets/install-tools.yml` file from this repository
+4. The file will be available as `local:snippets/install-tools.yml`
+
 The `snippets/install-tools.yml` file contains the Cloud-Init configuration that runs on first boot:
 
 - Creates a user with sudo privileges
@@ -100,6 +107,8 @@ The configuration provides the following outputs:
 
 ## Troubleshooting
 
+- **Volume does not exist**: Ensure the `install-tools.yml` snippet is uploaded to Proxmox storage as described in the Cloud-Init Configuration section.
+- **VM locked**: If a VM is locked from a previous failed operation, unlock it in the Proxmox web UI (VM > More > Unlock) or remove the VM if it's not needed. You may need to run `terraform destroy` to clean up the state and start fresh.
 - Ensure your Proxmox API token has VM creation permissions
 - Verify the cloud-init template exists and is properly configured
 - Check network connectivity between Terraform host and Proxmox server
